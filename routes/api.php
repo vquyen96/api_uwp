@@ -23,4 +23,5 @@ Route::post('begin', 'LoginController@begin');
 Route::post('song', 'SongController@createSong');
 Route::get('list_song', 'SongController@listSong');
 Route::post('your_song', 'SongController@yourSong');
+Route::post('post_detail_song', 'SongController@postDetailSong');
 

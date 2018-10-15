@@ -25,7 +25,6 @@ class SongController extends Controller
     }
     public function listSong(){
         $songs = Song::orderByDesc('id')->get();
-
         return response()->json( $songs, 200);
     }
     public  function yourSong(Request $request){
@@ -40,4 +39,23 @@ class SongController extends Controller
             return response()->json( $check['messages'], 501);
         }
     }
+    public function postDetailSong(Request $request){
+        $data = $request->all();
+        $token = $request->header('Token');
+        $check = $this->check_token($token);
+        if ($check['status']){
+            $song = Song::find($data[id]);
+            if ($song->update($data)){
+                return response()->json( $song, 200);
+            }else{
+                return response()->json( 'Cập nhật bị lỗi', 501);
+            }
+        }
+        else{
+            return response()->json( $check['messages'], 501);
+        }
+    }
+//    public function postDetailSong(Request $request){
+//
+//    }
 }

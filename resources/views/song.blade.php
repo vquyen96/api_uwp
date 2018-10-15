@@ -50,6 +50,7 @@
                 <span class="input-group-text" id="inputGroup-sizing-default">Link</span>
             </div>
             <input type="text" name="link" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            <input type="text" name="id" class="form-control d-none" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
         </div>
 
         <button type="button" class="btn btn-primary btn-lg btn-block create_song">SEND</button>
@@ -115,7 +116,14 @@
             success: function(resp){
                 var content = "<ul>";
                 for (var i=0 ;i < resp.length; i++ ){
-                    content += "<li>"+resp[i].name+"</li>";
+                    content += "<li style='cursor: pointer' class='detail_song'><span class='song_name mr-2'>"+resp[i].name+"</span> - ";
+                    content += "<span class='song_description mr-2'>"+resp[i].description+"</span> - ";
+                    content += "<span class='song_singer mr-2'>"+resp[i].singer+"</span> - ";
+                    content += "<span class='song_author mr-2'>"+resp[i].author+"</span> - ";
+                    content += "<span class='song_thumbnail mr-2'>"+resp[i].thumbnail+"</span> - ";
+                    content += "<span class='song_link mr-2'>"+resp[i].link+"</span> - ";
+                    content += "<span class='song_id d-none mr-2'>"+resp[i].id+"</span>";
+                    content += "</li>";
                 }
                 content += "</ul>";
                 $('.list_song').html(content);
@@ -125,6 +133,20 @@
             }
         });
     });
+    $(document).on('click', '.detail_song', function () {
+        // console.log($(this).find('.song_name').text());
+        $('input[name="name"]').val($(this).find('.song_name').text());
+        $('input[name="description"]').val($(this).find('.song_description').text());
+        $('input[name="singer"]').val($(this).find('.song_singer').text());
+        $('input[name="author"]').val($(this).find('.song_author').text());
+        $('input[name="thumbnail"]').val($(this).find('.song_thumbnail').text());
+        $('input[name="link"]').val($(this).find('.song_link').text());
+        $('input[name="id"]').val($(this).find('.song_id').text());
+    });
+    // $(".detail_song").click(function(){
+    //
+    //
+    // });
 </script>
 
 
